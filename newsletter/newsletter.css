@@ -21,14 +21,40 @@
     box-sizing: border-box;
 }
 
+
+/* --- CONFIGURAÇÃO DO TEMA --- */
 :root {
     --azul-contech: #3066BE;
     --background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 1) 58%, rgba(52, 170, 216, 1) 100%);
+    
+    /* Cores Padrão (Claro) */
+    --bg-body: #f2f2f2;
+    --bg-header: #ffffff;
+    --bg-menu-mobile: #f2f2f2c1;
+    --bg-elementos: #ffffff;
+    --texto-principal: #000000;
+    --texto-secundario: #333333;
+    --cor-input-border: #00000015;
 }
 
-body {
-    background-color: #f2f2f2;
+/* Cores Modo Escuro (Ativado via JS) */
+body.dark-mode {
+    --bg-body: #202020;
+    --bg-header: #dbdbdb;
+    --bg-menu-mobile: #dbdbdbc2;
+    --bg-elementos: #2c2c2c;
+    --texto-principal: #f2f2f2;
+    --texto-secundario: #d1d1d1;
+    --cor-input-border: #ffffff30;
 }
+
+
+body {
+    background-color: var(--bg-body); /* Alterado para variável */
+    color: var(--texto-principal);    /* Adicionado para garantir herança */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* --------------------------- */
 
 h2 {
     font-family: "Bebas";
@@ -52,12 +78,28 @@ header button {
     color: var(--azul-contech);
 }
 
+/* Estilo para o botão de tema (Necessário para o JS funcionar visualmente) */
+#btn-tema {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--azul-contech);
+    margin-left: 20px;
+    padding: 5px;
+    transition: transform 0.3s;
+}
+#btn-tema:hover {
+    transform: rotate(180deg);
+}
+
 header {
     height: 100px;
-    background-color: white;
+    background-color: var(--bg-header); /* Alterado para variável */
     position: fixed;
     top: 0;
     width: 100%;
+    transition: background-color 0.3s;
 }
 
 header .container-grid {
@@ -86,7 +128,7 @@ header img {
     font-size: 18px;
 
     text-decoration: none;
-    color: black;
+    color:black; /* Alterado para variável */
     transition: 500ms ease;
     text-decoration: underline transparent;
     transition: text-decoration 500ms ease;
@@ -102,14 +144,10 @@ header img {
 }
 
 header {
-    color: white;
-    /* Cor do texto */
+    color: var(--texto-principal); /* Alterado para variável */
     padding: 20px;
-    /* Espaçamento interno */
     text-align: left;
-    /* Centraliza o texto */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Sombra */
 }
 
 
@@ -225,7 +263,7 @@ header {
 .block-title {
     font-size: 2em;
     font-weight: 300;
-    color: var(--color-text-dark);
+    /* color: var(--color-text-dark);  <-- Removido pois o fundo é gradiente azul */
     text-align: center;
 
     background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 1) 58%, rgba(52, 170, 216, 1) 100%);
@@ -255,6 +293,8 @@ header {
     margin-bottom: 2%;
     font-family: "Roboto Light";
     line-height: 1.5;
+    
+    color: var(--texto-principal); /* Garante a cor no modo escuro */
 }
 
 .content-block b {
@@ -282,11 +322,11 @@ header {
 
 .cta-button {
     background-color: #3066BE;
-    color: var(--color-text-light);
+    color: var(--color-text-light); /* Utiliza variável branca */
     border: none;
     padding: 15px 40px;
     font-size: 1.5em;
-    font-weight: 700;
+    font-weight: 300;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 10px;
@@ -446,7 +486,7 @@ footer .container-grid {
         flex-direction: column;
         justify-content: space-around;
 
-        background-color: #f2f2f2c1;
+        background-color: var(--bg-menu-mobile); /* Alterado para variável */
 
         position: absolute;
         top: 100px;
@@ -670,7 +710,4 @@ footer .container-grid {
         font-size: 2.6em;
     }
     
-
-
-
 }

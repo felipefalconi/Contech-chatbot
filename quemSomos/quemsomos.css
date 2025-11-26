@@ -8,7 +8,6 @@
     src: url(fonts/Roboto-Light.ttf)
 }
 
-
 @font-face {
     font-family: "Roboto Medium";
     src: url(fonts/Roboto-Medium.ttf)
@@ -21,18 +20,42 @@
     box-sizing: border-box;
 }
 
+/* --- DEFINIÇÃO DE VARIÁVEIS E MODO ESCURO --- */
 :root {
     --azul-contech: #3066BE;
     --background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 1) 58%, rgba(52, 170, 216, 1) 100%);
+    
+    /* Variáveis de Tema (Modo Claro Padrão) */
+    --body-bg: #f2f2f2;
+    --header-bg: #ffffff;
+    --text-color: #000000;
+    --menu-hover: #B9B541;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --menu-mobile-bg: #f2f2f2c1;
+    --footer-bg: #3066BE;
+    --footer-text: white;
+}
+
+/* Configurações do Modo Escuro */
+.dark-mode {
+    --body-bg: #202020;
+    --header-bg: #dbdbd1;
+    --text-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --menu-mobile-bg: #dbdbdbc2;
+    --azul-contech: #4d89ea; /* Um azul levemente mais claro para leitura em fundo escuro */
 }
 
 body {
-    background-color: #f2f2f2;
+    background-color: var(--body-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h2 {
     font-family: "Bebas";
     font-size: 28px;
+    color: var(--text-color); /* Adicionado para garantir visibilidade */
 }
 
 html {
@@ -42,22 +65,53 @@ html {
 .container-grid {
     width: 80vw;
     max-width: 1400px;
-
     margin: 0 auto;
 }
-
 
 header button {
     display: none;
     color: var(--azul-contech);
 }
 
+/* --- BOTÃO TOGGLE (NOVO) --- */
+#theme-toggle {
+    display: flex; /* Garante que aparece no desktop também */
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--text-color); /* Borda sutil */
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    margin-left: 20px; /* Espaço do menu */
+    color: var(--text-color);
+    transition: transform 0.3s ease;
+}
+/* Estilo para o botão de tema (NOVO) */
+#btn-tema {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--azul-contech);
+    margin-left: 20px;
+    padding: 5px;
+    transition: transform 0.3s;
+}
+#btn-tema:hover {
+    transform: rotate(180deg);
+}
+/* Fim do CSS do botão toggle */
+
 header {
     height: 100px;
-    background-color: white;
+    background-color: var(--header-bg);
     position: fixed;
     top: 0;
     width: 100%;
+    /* Adicionada transição para suavizar a troca de cor do header */
+    transition: background-color 0.3s ease; 
 }
 
 header .container-grid {
@@ -71,62 +125,47 @@ header .container-grid {
     width: 90%;
     display: flex;
     justify-content: space-evenly;
-
 }
 
 header img {
     width: 15%;
     display: flex;
     margin-right: 15%;
-
 }
 
 .menu a {
     font-family: "Roboto Light";
     font-size: 18px;
-
     text-decoration: none;
-    color: black;
+    color: black;/* Alterado para variável */
     transition: 500ms ease;
     text-decoration: underline transparent;
     transition: text-decoration 500ms ease;
-
-
 }
 
 .menu b,
 .menu a:hover {
-    color: #B9B541;
+    color: var(--menu-hover);
     font-family: "Roboto Medium";
     font-weight: 300;
 }
 
 header {
-    color: white;
-    /* Cor do texto */
+    color: white; /* Nota: Isso afeta textos herdados, mas menu a já sobrescreve */
     padding: 20px;
-    /* Espaçamento interno */
     text-align: left;
-    /* Centraliza o texto */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Sombra */
+    box-shadow: 0 4px 8px var(--shadow-color);
+
+    z-index:3;
 }
-
-
-
-
 
 /* 1. Preparar o container pai */
 .banner {
     position: relative;
-    /* Necessário para controlar os elementos dentro dele */
     width: 100%;
     top: 100px;
-    /* Removemos o background fixo aqui, ou deixamos como fallback se o vídeo falhar */
-    background-color: #3066BE;
+    background-color: #3066BE; /* Mantém azul pois é fallback do vídeo */
     overflow: hidden;
-    /* Garante que nada saia das bordas */
-
     margin-bottom: 10%;
 }
 
@@ -138,44 +177,34 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Faz o vídeo preencher tudo sem distorcer */
     z-index: 0;
-    /* Fica na camada mais baixa */
 }
 
-/* 3. (Opcional) Manter o tom azulado original por cima do vídeo */
+/* 3. Overlay */
 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* Usei o seu gradiente original, mas mudei a opacidade das cores para o vídeo aparecer */
     background: radial-gradient(circle, rgba(48, 102, 190, 0.6) 0%, rgba(48, 102, 190, 0.5) 58%, rgba(52, 170, 216, 0.6) 100%);
-
     z-index: 1;
-    /* Fica acima do vídeo */
 }
 
-/* 4. Garantir que o texto fique na frente de tudo */
+/* 4. Conteúdo Banner */
 .conteudo-banner {
     height: 60vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-
-
-    /* Adicionado para garantir que o texto fique sobre o vídeo */
     position: relative;
     z-index: 2;
 }
 
-/* O restante do seu CSS (p, b, span) continua igual... */
 .conteudo-banner p {
     width: 800px;
-    color: white;
-    /* Cuidado: se o vídeo for escuro, mude para white */
+    color: white; /* Texto sobre vídeo/gradiente deve permanecer branco */
     font-family: "Bebas";
     font-size: 5.5em;
     text-align: center;
@@ -186,7 +215,6 @@ header {
 .conteudo-banner b {
     width: 530px;
     background: local;
-
     border-radius: 10px;
     padding: 2%;
     padding-bottom: 1%;
@@ -195,31 +223,17 @@ header {
     font-weight: 300;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 #sobre p {
     font-size: 24px;
     font-family: "Roboto Light";
-    color: black;
-
+    color: var(--text-color); /* Alterado para variável */
     text-align: left;
     line-height: 1.9;
-
     margin-bottom: 2%;
 }
 
 #sobre b {
-    color: #3066BE;
+    color: var(--azul-contech);
     font-family: "Roboto Medium";
     font-weight: 400;
     letter-spacing: 1px;
@@ -235,29 +249,22 @@ header {
 #sobre button {
     width: 40%;
     background: local;
-    background-color: #3066BE;
+    background-color: var(--azul-contech);
     padding: 2%;
-
-
     font-size: 28px;
     letter-spacing: 1px;
-
     font-family: "Bebas";
-    color: white;
+    color: white; /* Texto do botão mantém branco */
     cursor: pointer;
     border: none;
     border-radius: 10px;
-
     transition: background-color 500ms;
-
-
     margin-top: 8%;
     align-items: baseline;
 }
 
 #sobre button:hover {
-
-    background-color: #215486
+    background-color: #215486;
 }
 
 #sobre a {
@@ -269,15 +276,11 @@ header {
 #sobre {
     width: 100%;
     display: flex;
-
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
     margin-top: 5%;
-
     height: 400px;
-
     margin-bottom: 10%;
 }
 
@@ -293,9 +296,7 @@ header {
 #newsletter {
     height: 130vh;
     text-align: center;
-
     margin-bottom: 10%;
-
 }
 
 #newsletter h2 {
@@ -304,44 +305,37 @@ header {
     letter-spacing: 2%;
     font-weight: 300;
     margin-bottom: 5%;
+    color: var(--text-color); /* Garante cor correta no dark mode */
 }
-
 
 footer {
     height: 290px;
-
-    background-color: #3066BE;
+    background-color: var(--footer-bg);
 }
 
 footer .container-grid {
     height: 100%;
     padding-top: 70px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
 
-
 .redes-sociais a {
     height: 50%;
     margin: auto;
-
     margin-left: 8px;
     margin-bottom: 20px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: left;
-
-    color: white;
+    color: var(--footer-text);
     font-family: "Roboto Light";
     font-size: 18px;
     text-decoration: none;
 }
-
 
 .numero {
     display: flex;
@@ -351,7 +345,6 @@ footer .container-grid {
 .email {
     display: flex;
     flex-direction: row-reverse;
-
 }
 
 .instagram {
@@ -366,26 +359,20 @@ footer .container-grid {
 
 .redes-sociais svg {
     height: 22px;
-    color: white;
+    color: var(--footer-text);
 }
-
 
 .redes-sociais svg:hover {
     color: #E7E247;
 }
 
-
-
 .menu-fechado {
     display: none;
 }
 
-
 #icone-barras {
     display: none;
 }
-
-
 
 /* --- INOVAÇÃO E INTELIGÊNCIA SECTION --- */
 .inovacao-inteligencia {
@@ -399,17 +386,17 @@ footer .container-grid {
     letter-spacing: 2%;
     font-weight: 300;
     margin-bottom: 5%;
+    color: var(--text-color); /* Adicionado */
 }
 
-
 .inovacao-inteligencia h2 b {
-    color: #3066BE;
+    color: var(--azul-contech);
     font-family: "Bebas";
     font-weight: 300;
 }
 
 .inovacao-inteligencia b {
-    color: #ffffff;
+    color: #ffffff; /* Mantido branco pois está dentro dos boxes azuis? Se não, mudar para var(--text-color) */
     font-family: "Roboto Medium";
     font-weight: 300;
 }
@@ -417,47 +404,36 @@ footer .container-grid {
 .info-box-wrapper {
     display: flex;
     flex-direction: column;
-    /* Caixas empilhadas verticalmente */
     align-items: center;
 }
 
 .info-box {
     width: 100%;
-
     margin: 2%;
-
     padding: 2%;
     text-align: left;
     border-radius: 10px;
-
     background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 0.900) 58%, rgba(52, 170, 216, 1) 100%);
-
-    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.348);
-
+    box-shadow: 2px 2px 4px 0px var(--shadow-color);
 }
 
 .blue-bg {
     border-radius: 10px;
-
-    color: white;
-
+    color: white; /* Texto dentro do box azul continua branco */
     font-family: "Roboto Light";
     font-size: 20px;
     line-height: 1.5;
-
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .blue-bg strong {
     font-weight: 700;
 }
 
-
 /* --- VIDEO SECTION --- */
 #video-section {
     display: flex;
     justify-content: center;
-
     margin-bottom: 10%;
     flex-direction: column;
 }
@@ -466,43 +442,29 @@ footer .container-grid {
     font-size: 2em;
     font-weight: 300;
     text-align: center;
-
     background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 1) 58%, rgba(52, 170, 216, 1) 100%);
     color: white;
     font-family: "Bebas";
     letter-spacing: 1px;
-
     padding: 2%;
     padding-top: 1%;
     border-radius: 10px 10px 0px 0px;
 }
 
 #video {
-
     border-radius: 0px 0px 10px 10px;
     display: flex;
-
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 
 .play-button {
-
     border-top: 40px solid transparent;
     border-bottom: 40px solid transparent;
-
 }
 
-
-/* --- FOOTER --- */
-.footer {
-    background-color: var(--color-dark-blue);
-    color: var(--color-text-light);
-    padding: 40px 50px;
-    font-size: 0.9em;
-}
-
+/* --- FOOTER CONTENT (Mantido original) --- */
 .footer-content {
     display: flex;
     justify-content: space-between;
@@ -514,7 +476,6 @@ footer .container-grid {
 .footer-logo img {
     height: 40px;
     filter: brightness(0) invert(1);
-    /* Tenta deixar o logo branco */
 }
 
 .footer-links p,
@@ -525,7 +486,6 @@ footer .container-grid {
 
 .footer-links p:first-child {
     margin-top: 5px;
-    /* Alinhamento visual */
 }
 
 .footer-links strong,
@@ -535,7 +495,6 @@ footer .container-grid {
 
 .footer-links {
     margin-left: 100px;
-    /* Espaçamento entre as seções */
 }
 
 .footer-contact p {
@@ -543,24 +502,13 @@ footer .container-grid {
     align-items: center;
 }
 
-/* Adicione ícones se quiser (usando font-awesome ou emojis) */
-/* Exemplo de como adicionar um ícone ou emoji */
-/* .footer-contact p:before {
-    content: '📧';
-    margin-right: 10px;
-    font-size: 1.2em;
-} */
-
+/* --- MEDIA QUERIES --- */
 
 @media screen and (max-width: 1720px) {
-
-
-
     header {
         position: relative;
         width: 100%
     }
-
     .banner {
         top: auto;
     }
@@ -570,16 +518,20 @@ footer .container-grid {
     header {
         position: relative;
         width: 100%;
-
     }
 
     header button {
+        /* O botão original do menu mobile */
         width: 50px;
-
         display: unset;
-
         background: none;
         border: none;
+    }
+
+    /* O botão theme-toggle precisa continuar visível mas sem conflitar */
+    #theme-toggle {
+        margin-left: 0;
+        margin-right: 15px; /* Espaço entre o sol/lua e o hamburguer */
     }
 
     header img {
@@ -593,32 +545,27 @@ footer .container-grid {
     nav.menu {
         height: 300px;
         width: 30%;
-
         padding: 5%;
-
-
         flex-direction: column;
         justify-content: space-around;
-
-        background-color: #f2f2f2c1;
-
+        
+        /* Alterado para variável para suportar menu escuro no mobile */
+        background-color: var(--menu-mobile-bg);
+        
         position: absolute;
         top: 100px;
         right: 0px;
-
         z-index: 3;
     }
 
     .menu b {
-        color: #3066BE;
+        color: var(--azul-contech);
     }
 
     #sobre {
         padding: 15%;
-
         margin-top: 10%;
         display: flex;
-
         flex-direction: column;
         align-items: center;
     }
@@ -638,7 +585,6 @@ footer .container-grid {
         font-size: 22px;
         line-height: 1.5;
         justify-self: center;
-
         margin-bottom: 1%;
     }
 
@@ -647,7 +593,7 @@ footer .container-grid {
     }
 
     #sobre button {
-        background-color: #3066BE;
+        background-color: var(--azul-contech);
         color: white;
         border: none;
         padding: 10px 30px;
@@ -658,20 +604,14 @@ footer .container-grid {
         border-radius: 10px;
         transition: background-color 0.3s;
         font-family: "Bebas";
-
         letter-spacing: 1px;
-
         display: flex;
         align-items: center;
         justify-content: center;
-
         margin-top: 5%;
-
     }
 
-
     #sobre .p2 img {
-
         width: 100%;
         margin-bottom: 5%;
         display: unset;
@@ -679,11 +619,7 @@ footer .container-grid {
     }
 }
 
-
-
 @media screen and (max-width: 1080px) {
-
-
     .conteudo-banner p {
         font-size: 4.5em;
         width: 85%
@@ -691,7 +627,6 @@ footer .container-grid {
 
     #sobre {
         padding: 80px 15%;
-
     }
 
     .inovacao-inteligencia h2 {
@@ -730,9 +665,7 @@ footer .container-grid {
     }
 }
 
-
 @media screen and (max-width: 890px) {
-
     h2 {
         font-size: 24px;
     }
@@ -743,23 +676,17 @@ footer .container-grid {
 
     #sobre {
         margin-top: 30px;
-
         padding-top: 20px;
         height: unset;
-
         padding-bottom: unset;
     }
 
     #sobre p {
         margin-bottom: 10px;
     }
-
 }
 
-
 @media screen and (max-width: 700px) {
-
-
     h2 {
         font-size: 24px;
     }
@@ -769,15 +696,11 @@ footer .container-grid {
         font-size: 4.0em;
     }
 
-
-
     #sobre {
         padding-top: 10px;
         height: unset;
-
     }
 }
-
 
 @media screen and (max-width: 560px) {
     h2 {
@@ -791,7 +714,6 @@ footer .container-grid {
     .conteudo-banner img {
         height: 125px;
         width: 90px;
-
     }
 
     .container-grid {
@@ -800,13 +722,11 @@ footer .container-grid {
 
     header img {
         width: 40%;
-
     }
 
     .banner {
         background-size: cover;
     }
-
 
     nav.menu {
         width: 100%;
@@ -815,7 +735,6 @@ footer .container-grid {
     #sobre {
         padding-right: 4%;
         padding-left: 4%;
-
         padding-top: 10px;
         margin-bottom: 15%;
     }

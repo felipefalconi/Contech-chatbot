@@ -21,21 +21,43 @@
     box-sizing: border-box;
 }
 
+/* --- CONFIGURAÇÃO DO TEMA --- */
 :root {
     --azul-contech: #3066BE;
     --background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 1) 58%, rgba(52, 170, 216, 1) 100%);
+    
+    /* Cores Padrão (Claro) */
+    --bg-body: #f2f2f2;
+    --bg-header: #ffffff;
+    --bg-menu-mobile: #f2f2f2c1;
+    --bg-elementos: #ffffff;
+    --texto-principal: #000000;
+    --texto-secundario: #333333;
+    --cor-input-border: #00000015;
+}
+
+/* Cores Modo Escuro (Ativado via JS) */
+body.dark-mode {
+    --bg-body: #202020;
+    --bg-header: #dbdbdb;
+    --bg-menu-mobile: #dbdbdbc2;
+    --bg-elementos: #2c2c2c;
+    --texto-principal: #f2f2f2;
+    --texto-secundario: #d1d1d1;
+    --cor-input-border: #ffffff30;
 }
 
 body {
-    background-color: #f2f2f2;
+    background-color: var(--bg-body);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza a troca */
 }
-
-
+/* --------------------------- */
 
 
 h2 {
     font-family: "Bebas";
     font-size: 28px;
+    color: var(--texto-principal); /* Alterado para variável */
 }
 
 html {
@@ -55,12 +77,28 @@ header button {
     color: var(--azul-contech);
 }
 
+/* Estilo para o botão de tema (NOVO) */
+#btn-tema {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--azul-contech);
+    margin-left: 20px;
+    padding: 5px;
+    transition: transform 0.3s;
+}
+#btn-tema:hover {
+    transform: rotate(180deg);
+}
+
 header {
     height: 100px;
-    background-color: white;
+    background-color: var(--bg-header); /* Alterado para variável */
     position: fixed;
     top: 0;
     width: 100%;
+    transition: background-color 0.3s;
 }
 
 header .container-grid {
@@ -89,7 +127,7 @@ header img {
     font-size: 18px;
 
     text-decoration: none;
-    color: black;
+    color: black;/* Alterado para variável */
     transition: 500ms ease;
     text-decoration: underline transparent;
     transition: text-decoration 500ms ease;
@@ -105,26 +143,21 @@ header img {
 }
 
 header {
-    color: white;
-    /* Cor do texto */
+    color: var(--texto-principal); /* Alterado para variável */
     padding: 20px;
-    /* Espaçamento interno */
     text-align: left;
-    /* Centraliza o texto */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Sombra */
+
+    z-index:3;
 }
 
 /* 1. Preparar o container pai */
 .banner {
     position: relative;
-    /* Necessário para controlar os elementos dentro dele */
     width: 100%;
     top: 100px;
-    /* Removemos o background fixo aqui, ou deixamos como fallback se o vídeo falhar */
     background-color: #3066BE;
     overflow: hidden;
-    /* Garante que nada saia das bordas */
 
     margin-bottom: 10%;
 }
@@ -137,9 +170,7 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Faz o vídeo preencher tudo sem distorcer */
     z-index: 0;
-    /* Fica na camada mais baixa */
 }
 
 /* 3. (Opcional) Manter o tom azulado original por cima do vídeo */
@@ -149,11 +180,9 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Usei o seu gradiente original, mas mudei a opacidade das cores para o vídeo aparecer */
     background: radial-gradient(circle, rgba(48, 102, 190, 0.6) 0%, rgba(48, 102, 190, 0.5) 58%, rgba(52, 170, 216, 0.6) 100%);
 
     z-index: 1;
-    /* Fica acima do vídeo */
 }
 
 /* 4. Garantir que o texto fique na frente de tudo */
@@ -165,16 +194,14 @@ header {
     align-items: flex-start;
     padding-top: 5%;
 
-    /* Adicionado para garantir que o texto fique sobre o vídeo */
     position: relative;
     z-index: 2;
 }
 
-/* O restante do seu CSS (p, b, span) continua igual... */
+
 .conteudo-banner p {
     width: 800px;
     color: white;
-    /* Cuidado: se o vídeo for escuro, mude para white */
     font-family: "Bebas";
     font-size: 60px;
     text-align: left;
@@ -196,13 +223,12 @@ header {
 
 .conteudo-banner span {
     color: white;
-    /* Verifique se o contraste continua bom com o vídeo */
 }
 
 #sobre p {
     font-size: 24px;
     font-family: "Roboto Light";
-    color: black;
+    color: var(--texto-principal); /* Alterado para variável */
 
     text-align: left;
     line-height: 1.9;
@@ -226,11 +252,12 @@ header {
 
 #sobre button {
     background-color: #3066BE;
-    color: var(--color-text-light);
+    color: var(--color-text-light); /* Nota: essa variável não estava definida no root original, assumindo branco */
+    color: white; 
     border: none;
     padding: 15px 40px;
     font-size: 1.5em;
-    font-weight: 700;
+    font-weight: 300;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 10px;
@@ -291,6 +318,7 @@ header {
     letter-spacing: 2%;
     font-weight: 300;
     margin-bottom: 5%;
+    color: var(--texto-principal); /* Alterado */
 }
 
 #newsletter b {
@@ -376,7 +404,7 @@ header {
     font-family: "Roboto Light";
     font-size: 24px;
     line-height: 1.5;
-    color: black;
+    color: var(--texto-principal); /* Alterado para variável */
 
     padding: 1%;
     text-align: left;
@@ -391,7 +419,7 @@ header {
 
 .textos button {
     background-color: #3066BE;
-    color: var(--color-text-light);
+    color: white;
     border: none;
     padding: 15px 40px;
     font-size: 1.5em;
@@ -402,6 +430,8 @@ header {
     transition: background-color 0.3s;
     font-family: "Bebas";
     margin-top: 5%;
+
+    letter-spacing: 1px;
 }
 
 
@@ -422,7 +452,7 @@ header {
 
 #contato h2 {
     margin-bottom: 5%;
-    color: black;
+    color: var(--texto-principal); /* Alterado para variável */
     text-align: center;
 
     font-size: 60px;
@@ -436,7 +466,7 @@ header {
 }
 
 #contato .form b {
-    color: black;
+    color: var(--texto-principal); /* Alterado para variável */
     font-family: "Roboto Medium";
 
 }
@@ -455,11 +485,11 @@ header {
 
     border-radius: 10px;
 
-    background: radial-gradient(circle, rgba(48, 102, 190, 0.2) 0%, rgba(48, 102, 190, 0.2) 58%, rgba(52, 170, 216, 0.2) 100%);
+    background: #3066be62;
 
     border: none;
 
-    color: black;
+    color: var(--texto-principal); /* Alterado para variável */
     font-family: "Roboto Light";
     font-size: 18px;
 
@@ -497,9 +527,10 @@ header {
 .campo-telefone input {
     height: 40px;
 
-    background-color: white;
+    background-color: var(--bg-elementos); /* Alterado para variável */
+    color: var(--texto-principal); /* Texto do input acompanha o tema */
 
-    border: 1px solid #00000015;
+    border: 1px solid var(--cor-input-border); /* Alterado para variável */
     border-radius: 4px;
 
     text-indent: 10px;
@@ -509,10 +540,10 @@ header {
 
 .campo-descricao textarea {
     height: 130px;
-    color: #0F1F3C;
-    background-color: white;
+    color: var(--texto-principal); /* Alterado para variável */
+    background-color: var(--bg-elementos); /* Alterado para variável */
 
-    border: 1px solid #00000015;
+    border: 1px solid var(--cor-input-border); /* Alterado para variável */
     border-radius: 4px;
 
     outline: none;
@@ -580,9 +611,11 @@ input[name="ddd"] {
     color: #a0a0a0;
 }
 
+.campo-telefone input:focus,
+.campo-telefone label:focus,
 .campo input:focus,
 .campo-descricao textarea:focus {
-    outline: 2px solid #F25922;
+    outline: 2px solid #3066BE;
     border: none;
 }
 
@@ -746,7 +779,7 @@ footer .container-grid {
         flex-direction: column;
         justify-content: space-around;
 
-        background-color: #f2f2f2c1;
+        background-color: var(--bg-menu-mobile); /* Alterado para variável */
 
         position: absolute;
         top: 100px;
@@ -1179,7 +1212,7 @@ footer .container-grid {
     }
 
     #contato h2 {
-        color: black;
+        color: var(--texto-principal); /* Alterado */
         margin-bottom: unset;
         font-size: 1.8em;
     }

@@ -45,3 +45,24 @@ onresize = () => {
     // Mostrar o icone do X
     iconeX.style.display = "inline"
 }
+
+
+
+function alternarTema() {
+    const body = document.body;
+    
+    // Alterna a classe 'dark-mode' no body
+    body.classList.toggle('dark-mode');
+    
+    // (Opcional) Salva a preferência no navegador
+    const isDarkMode = body.classList.contains('dark-mode');
+    localStorage.setItem('tema', isDarkMode ? 'dark' : 'light');
+}
+
+// Verifica a preferência salva ao carregar a página
+window.onload = function() {
+    const temaSalvo = localStorage.getItem('tema');
+    if (temaSalvo === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+}
