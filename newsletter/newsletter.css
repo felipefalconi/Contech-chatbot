@@ -1,0 +1,676 @@
+@font-face {
+    font-family: "Bebas";
+    src: url(fonts/BebasNeue-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Roboto Light";
+    src: url(fonts/Roboto-Light.ttf)
+}
+
+
+@font-face {
+    font-family: "Roboto Medium";
+    src: url(fonts/Roboto-Medium.ttf)
+}
+
+/*reset css*/
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+:root {
+    --azul-contech: #3066BE;
+    --background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 1) 58%, rgba(52, 170, 216, 1) 100%);
+}
+
+body {
+    background-color: #f2f2f2;
+}
+
+h2 {
+    font-family: "Bebas";
+    font-size: 28px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.container-grid {
+    width: 80vw;
+    max-width: 1400px;
+
+    margin: 0 auto;
+}
+
+
+header button {
+    display: none;
+    color: var(--azul-contech);
+}
+
+header {
+    height: 100px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+header .container-grid {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+header img {
+    width: 15%;
+    display: flex;
+    margin-right: 15%;
+
+}
+
+.menu a {
+    font-family: "Roboto Light";
+    font-size: 18px;
+
+    text-decoration: none;
+    color: black;
+    transition: 500ms ease;
+    text-decoration: underline transparent;
+    transition: text-decoration 500ms ease;
+
+
+}
+
+.menu b,
+.menu a:hover {
+    color: #B9B541;
+    font-family: "Roboto Medium";
+    font-weight: 300;
+}
+
+header {
+    color: white;
+    /* Cor do texto */
+    padding: 20px;
+    /* Espaçamento interno */
+    text-align: left;
+    /* Centraliza o texto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra */
+}
+
+
+
+
+
+
+/* 1. Preparar o container pai */
+.banner {
+    position: relative;
+    /* Necessário para controlar os elementos dentro dele */
+    width: 100%;
+    top: 100px;
+    /* Removemos o background fixo aqui, ou deixamos como fallback se o vídeo falhar */
+    background-color: #3066BE;
+    overflow: hidden;
+    /* Garante que nada saia das bordas */
+
+    margin-bottom: 10%;
+}
+
+/* 2. Estilizar o vídeo para ficar no fundo */
+.image-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Faz o vídeo preencher tudo sem distorcer */
+    z-index: 0;
+    /* Fica na camada mais baixa */
+}
+
+/* 3. (Opcional) Manter o tom azulado original por cima do vídeo */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Usei o seu gradiente original, mas mudei a opacidade das cores para o vídeo aparecer */
+    background: radial-gradient(circle, rgba(48, 102, 190, 0.6) 0%, rgba(48, 102, 190, 0.5) 58%, rgba(52, 170, 216, 0.6) 100%);
+
+    z-index: 1;
+    /* Fica acima do vídeo */
+}
+
+/* 4. Garantir que o texto fique na frente de tudo */
+.conteudo-banner {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+
+    /* Adicionado para garantir que o texto fique sobre o vídeo */
+    position: relative;
+    z-index: 2;
+}
+
+/* O restante do seu CSS (p, b, span) continua igual... */
+.conteudo-banner p {
+    width: 800px;
+    color: white;
+    /* Cuidado: se o vídeo for escuro, mude para white */
+    font-family: "Bebas";
+    font-size: 5.5em;
+    text-align: center;
+    line-height: 1.8;
+    letter-spacing: 2px;
+}
+
+.conteudo-banner b {
+    width: 530px;
+    background: local;
+
+    border-radius: 10px;
+    padding: 2%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    color: white;
+    font-weight: 300;
+}
+
+.conteudo-banner span {
+    color: white;
+    /* Verifique se o contraste continua bom com o vídeo */
+}
+
+
+
+
+
+
+
+
+
+/* --- CONTENT SECTIONS --- */
+#textos-new {
+    padding: 60px 50px;
+    width: 100%;
+
+    /* Limita a largura do conteúdo */
+    margin: 0 auto;
+}
+
+.content-block {
+    margin-bottom: 10%;
+}
+
+.block-title {
+    font-size: 2em;
+    font-weight: 300;
+    color: var(--color-text-dark);
+    text-align: center;
+
+    background: radial-gradient(circle, rgba(48, 102, 190, 1) 0%, rgba(48, 102, 190, 1) 58%, rgba(52, 170, 216, 1) 100%);
+    color: white;
+    font-family: "Bebas";
+    letter-spacing: 1px;
+
+    padding: 2%;
+    padding-top: 1%;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.content-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    margin-bottom: 30px;
+
+    border-radius: 10px 10px 0px 0px;
+    /* Adiciona um leve arredondamento */
+}
+
+.content-block p {
+    font-size: 1.2em;
+
+    margin-bottom: 2%;
+    font-family: "Roboto Light";
+    line-height: 1.5;
+}
+
+.content-block b {
+    font-weight: 300;
+    font-family: "Roboto Medium";
+    color: #3066BE;
+
+    letter-spacing: 1px;
+    /* Destaque em azul */
+}
+
+/* --- CALL TO ACTION BUTTON --- */
+.call-to-action {
+    text-align: center;
+    padding: 20px 0 40px 0;
+    color: white;
+
+ 
+}
+
+.call-to-action a {
+    text-decoration: none;
+    color: white;
+}
+
+.cta-button {
+    background-color: #3066BE;
+    color: var(--color-text-light);
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s; 
+    font-family: "Bebas";
+
+    letter-spacing: 1px;
+}
+
+.cta-button:hover {
+    background-color: #215486;
+    /* Tom um pouco mais escuro no hover */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer {
+    height: 290px;
+
+    background-color: #3066BE;
+}
+
+footer .container-grid {
+    height: 100%;
+    padding-top: 70px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.redes-sociais a {
+    height: 50%;
+    margin: auto;
+
+    margin-left: 8px;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+
+    color: white;
+    font-family: "Roboto Light";
+    font-size: 18px;
+    text-decoration: none;
+}
+
+
+.numero {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.email {
+    display: flex;
+    flex-direction: row-reverse;
+
+}
+
+.instagram {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.linkedin {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.redes-sociais svg {
+    height: 22px;
+    color: white;
+}
+
+
+.redes-sociais svg:hover {
+    color: #E7E247;
+}
+
+
+
+
+
+
+
+.menu-fechado {
+    display: none;
+}
+
+
+#icone-barras {
+    display: none;
+}
+
+@media screen and (max-width: 1720px) {
+
+
+
+    header {
+        position: relative;
+        width: 100%
+    }
+
+    .banner {
+        top: auto;
+    }
+}
+
+
+@media screen and (max-width: 1300px) {
+    header {
+        position: relative;
+        width: 100%
+    }
+
+    header button {
+        width: 50px;
+
+        display: unset;
+
+        background: none;
+        border: none;
+    }
+
+    header img {
+        width: 25%;
+    }
+
+    header svg {
+        fill: var(--azul-contech);
+    }
+
+    nav.menu {
+        height: 300px;
+        width: 30%;
+
+        padding: 5%;
+
+
+        flex-direction: column;
+        justify-content: space-around;
+
+        background-color: #f2f2f2c1;
+
+        position: absolute;
+        top: 100px;
+        right: 0px;
+
+        z-index: 3;
+
+    }
+
+    .menu b{
+        color: #3066BE;
+    }
+
+    #sobre {
+        padding: 15%;
+
+        margin-top: 10%;
+        display: flex;
+
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .texto-button {
+        display: none;
+    }
+
+    #sobre img {
+        display: none;
+    }
+
+    #sobre p {
+        width: 100%;
+        text-align: left;
+        align-items: center;
+        font-size: 22px;
+        line-height: 1.5;
+        justify-self: center;
+
+        margin-bottom: 1%;
+    }
+
+    #sobre .p2 {
+        display: unset;
+    }
+
+    #sobre button {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: center;
+        font-size: 24px;
+        margin-top: 4%;
+        padding: 1%
+    }
+
+    #sobre .p2 img {
+
+        width: 100%;
+        margin-bottom: 5%;
+        display: unset;
+        align-items: center;
+    }
+}
+
+
+
+@media screen and (max-width: 1080px) {
+
+
+    .conteudo-banner p {
+        font-size: 4.5em;
+        width: 85%
+    }
+
+    #sobre {
+        padding: 80px 15%;
+
+    }
+
+    .inovacao-inteligencia h2 {
+        font-size: 40px;
+    }
+
+    #sobre h2 {
+        margin-top: 40px;
+    }
+
+    #sobre p {
+        margin-bottom: 15px;
+    }
+
+    footer {
+        height: unset;
+    }
+
+    footer .container-grid {
+        padding: 80px;
+        flex-direction: column;
+    }
+
+    footer img {
+        margin-bottom: 100px;
+    }
+
+    footer p {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .redes-sociais {
+        align-items: center;
+    }
+}
+
+
+@media screen and (max-width: 890px) {
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .inovacao-inteligencia h2 {
+        font-size: 30px;
+    }
+
+    #sobre {
+        margin-top: 30px;
+
+        padding-top: 20px;
+        height: unset;
+
+        padding-bottom: unset;
+    }
+
+    #sobre p {
+        margin-bottom: 10px;
+    }
+
+}
+
+
+@media screen and (max-width: 700px) {
+
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .conteudo-banner p {
+        height: unset;
+        font-size: 4.0em;
+    }
+
+
+
+    #sobre {
+        padding-top: 10px;
+        height: unset;
+
+    }
+}
+
+
+@media screen and (max-width: 560px) {
+    h2 {
+        font-size: 22px;
+    }
+
+    .conteudo-banner p {
+        font-size: 3.0em;
+    }
+
+    .conteudo-banner img {
+        height: 125px;
+        width: 90px;
+
+    }
+
+    .container-grid {
+        width: 90%;
+    }
+
+    header img {
+        width: 40%;
+
+    }
+
+    .banner {
+        background-size: cover;
+    }
+
+
+    nav.menu {
+        width: 100%;
+    }
+
+    .content-block p {
+        margin-bottom: 5%;
+    }
+
+    .content-block h2 {
+        margin-top: 15%;
+        padding-top: 3%;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+    header img {
+        width: 160px;
+    }
+
+    header svg {
+        width: 40px;
+    }
+
+    .conteudo-banner p {
+        font-size: 2.6em;
+    }
+    
+
+
+
+}
