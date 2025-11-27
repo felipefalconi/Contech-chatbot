@@ -38,11 +38,11 @@
 
 /* Configurações do Modo Escuro */
 .dark-mode {
-    --body-bg: #202020;
-    --header-bg: #dbdbd1;
-    --text-color: #e0e0e0;
+    --body-bg: #141414;
+    --header-bg: #f2f2f2db;
+    --text-color: #f2f2f2db;
     --shadow-color: rgba(0, 0, 0, 0.5);
-    --menu-mobile-bg: #dbdbdbc2;
+    --menu-mobile-bg: #efefefb2;
     --azul-contech: #4d89ea; /* Um azul levemente mais claro para leitura em fundo escuro */
 }
 
@@ -145,7 +145,7 @@ header img {
 
 .menu b,
 .menu a:hover {
-    color: var(--menu-hover);
+    color: var(--azul-contech);
     font-family: "Roboto Medium";
     font-weight: 300;
 }

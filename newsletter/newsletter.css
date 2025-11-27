@@ -39,9 +39,10 @@
 
 /* Cores Modo Escuro (Ativado via JS) */
 body.dark-mode {
-    --bg-body: #202020;
-    --bg-header: #dbdbdb;
-    --bg-menu-mobile: #dbdbdbc2;
+    --azul-contech:#3478e5;
+    --bg-body: #141414;
+    --bg-header: #f2f2f2db;
+    --bg-menu-mobile: #efefefb2;
     --bg-elementos: #2c2c2c;
     --texto-principal: #f2f2f2;
     --texto-secundario: #d1d1d1;
@@ -106,13 +107,16 @@ header .container-grid {
     height: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;  
+      z-index: 3;
 }
 
 .menu {
     width: 90%;
     display: flex;
     justify-content: space-evenly;
+
+
 
 }
 
@@ -138,7 +142,7 @@ header img {
 
 .menu b,
 .menu a:hover {
-    color: #B9B541;
+    color: var(--azul-contech);
     font-family: "Roboto Medium";
     font-weight: 300;
 }
@@ -148,6 +152,7 @@ header {
     padding: 20px;
     text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index:3;
 }
 
 
@@ -300,7 +305,7 @@ header {
 .content-block b {
     font-weight: 300;
     font-family: "Roboto Medium";
-    color: #3066BE;
+    color: var(--azul-contech);
 
     letter-spacing: 1px;
     /* Destaque em azul */

@@ -38,9 +38,10 @@
 
 /* Cores Modo Escuro (Ativado via JS) */
 body.dark-mode {
-    --bg-body: #202020;
-    --bg-header: #dbdbdb;
-    --bg-menu-mobile: #dbdbdbc2;
+    --azul-contech: #3478e5;
+    --bg-body: #141414;
+    --bg-header: #f2f2f2db;
+    --bg-menu-mobile: #efefefb2;
     --bg-elementos: #2c2c2c;
     --texto-principal: #f2f2f2;
     --texto-secundario: #d1d1d1;
@@ -99,6 +100,7 @@ header {
     top: 0;
     width: 100%;
     transition: background-color 0.3s;
+
 }
 
 header .container-grid {
@@ -112,7 +114,7 @@ header .container-grid {
     width: 90%;
     display: flex;
     justify-content: space-evenly;
-
+    z-index: 3;
 }
 
 header img {
@@ -137,7 +139,7 @@ header img {
 
 .menu b,
 .menu a:hover {
-    color: #B9B541;
+    color: var(--azul-contech);
     font-family: "Roboto Medium";
     font-weight: 300;
 }
@@ -237,7 +239,7 @@ header {
 }
 
 #sobre b {
-    color: #3066BE;
+    color: var(--azul-contech);
     font-family: "Roboto Medium";
     font-weight: 400;
     letter-spacing: 1px;
@@ -322,7 +324,7 @@ header {
 }
 
 #newsletter b {
-    color: #3066BE;
+    color: var(--azul-contech);
     font-weight: 300;
 }
 
@@ -461,7 +463,7 @@ header {
 }
 
 #contato b {
-    color: #3066BE;
+    color: var(--azul-contech);
     font-weight: 300;
 }
 
