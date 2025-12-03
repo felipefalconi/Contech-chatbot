@@ -1,24 +1,28 @@
 
-let menu = document.getElementById("menu")
-let iconeBarras = document.getElementById("icone-barras")
-let iconeX = document.getElementById("icone-x")
+/* ============================================================ */
+/* 1. LÓGICA DO SITE (Menu, Tema, Contato)                      */
+/* ============================================================ */
+
+let menu = document.getElementById("menu");
+let iconeBarras = document.getElementById("icone-barras");
+let iconeX = document.getElementById("icone-x");
 
 function abreFechaMenu() {
     if (menu.classList.contains("menu-fechado")) {
-        menu.classList.remove("menu-fechado")
-        iconeBarras.style.display = "none"
-        iconeX.style.display = "inline"
+        menu.classList.remove("menu-fechado");
+        iconeBarras.style.display = "none";
+        iconeX.style.display = "inline";
     } else {
-        menu.classList.add("menu-fechado")
-        iconeX.style.display = "none"
-        iconeBarras.style.display = "inline"
+        menu.classList.add("menu-fechado");
+        iconeX.style.display = "none";
+        iconeBarras.style.display = "inline";
     }
 }
 
 onresize = () => {
-    menu.classList.remove("menu-fechado")
-    iconeBarras.style.display = "none"
-    iconeX.style.display = "inline"
+    menu.classList.remove("menu-fechado");
+    iconeBarras.style.display = "none";
+    iconeX.style.display = "inline";
 }
 
 function alternarTema() {
@@ -88,6 +92,7 @@ function abrirChatbot() {
     iconeTekFechado.style.display = 'none';
     containerChatbot.classList.remove('fechado');
 
+    // Reseta visual para o estado inicial
     chatIniciado = false;
     elementosBoasVindas.classList.remove('escondido');
     cabecalhoChatbot.classList.remove('modo-chat');
@@ -96,6 +101,7 @@ function abrirChatbot() {
 
     corpoChat.innerHTML = '';
     
+    // Mensagens de saudação (Fixas)
     adicionarMensagem("Olá, Eu sou o Techo!", 'bot');
     adicionarMensagem("O que quer saber?", 'bot');
 
@@ -130,34 +136,47 @@ function iniciarModoChatCompleto() {
 function adicionarMensagem(texto, remetente) {
     const divMensagem = document.createElement('div');
     
+    // Formatação de texto (Negrito e Itálico)
+    let textoFormatado = texto
+        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Converte **texto** para Negrito
+        .replace(/\*(.*?)\*/g, '<i>$1</i>')     // Converte *texto* para Itálico
+        .replace(/\n/g, '<br>');                // Quebra de linha
+
     let iconeHTML = '';
     if (remetente === 'bot') {
         divMensagem.classList.add('mensagem-bot');
         iconeHTML = `<img src="${URL_MASCOTE_TEKINHO}" alt="Tekinho" class="icone-mensagem-bot">`;
-        divMensagem.innerHTML = `${iconeHTML} <span>${texto}</span>`;
+        divMensagem.innerHTML = `${iconeHTML} <span>${textoFormatado}</span>`;
     } else {
         divMensagem.classList.add('mensagem-usuario');
         iconeHTML = `<img src="${URL_ICONE_USUARIO}" alt="Você" class="icone-mensagem-usuario">`;
-        divMensagem.innerHTML = `<span>${texto}</span> ${iconeHTML}`;
+        divMensagem.innerHTML = `<span>${textoFormatado}</span> ${iconeHTML}`;
     }
 
     corpoChat.appendChild(divMensagem);
     corpoChat.scrollTop = corpoChat.scrollHeight;
 }
 
+/**
+ * FUNÇÃO PRINCIPAL: Conecta com a API do Gemini
+ */
 async function processarMensagem(texto) {
     if (!texto.trim()) return;
 
+    // 1. Muda visual para o chat completo
     iniciarModoChatCompleto();
 
+    // 2. Adiciona mensagem do usuário na tela
     adicionarMensagem(texto, 'user');
     inputUsuario.value = '';
     
+    // 3. Trava input e mostra estado de carregamento
     inputUsuario.disabled = true;
     botaoEnviar.disabled = true;
-    inputUsuario.placeholder = "Techo está pensando...";
+    inputUsuario.placeholder = "Techo está digitando...";
     
     try {
+        // --- CONEXÃO COM A API ---
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
@@ -172,12 +191,14 @@ async function processarMensagem(texto) {
 
         const data = await response.json();
         
+        // 4. Recebe a resposta da IA e mostra na tela
         adicionarMensagem(data.reply, 'bot');
 
     } catch (error) {
         console.error("Erro detalhado:", error);
         adicionarMensagem("Desculpe, estou com problemas de conexão agora. Tente recarregar a página! 🔌", 'bot');
     } finally {
+        // 5. Destrava o chat
         inputUsuario.disabled = false;
         botaoEnviar.disabled = false;
         inputUsuario.placeholder = "Digite sua mensagem...";
@@ -185,22 +206,24 @@ async function processarMensagem(texto) {
     }
 }
 
-// Event Listeners
-botaoEnviar.addEventListener('click', () => processarMensagem(inputUsuario.value));
+// --- Event Listeners ---
 
-inputUsuario.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') processarMensagem(inputUsuario.value);
+// Botão Enviar
+botaoEnviar.addEventListener('click', () => {
+    processarMensagem(inputUsuario.value);
 });
 
+// Tecla Enter
+inputUsuario.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        processarMensagem(inputUsuario.value);
+    }
+});
+
+// Botões de Categoria
 botoesCategoria.forEach(btn => {
     btn.addEventListener('click', () => {
         let texto = btn.getAttribute('data-prompt');
         processarMensagem(texto);
     });
-});
-
-botaoEnviar.addEventListener('click', () => {
-    console.log("O botão foi clicado!"); 
-    alert("Teste: O botão funciona!");  
-    processarMensagem(inputUsuario.value);
 });
