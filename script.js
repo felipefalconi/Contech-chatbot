@@ -80,7 +80,7 @@ const botoesCategoria = document.querySelectorAll('.botao-categoria');
 
 const URL_MASCOTE_TEKINHO = "img/cabeca.png"; 
 const URL_ICONE_USUARIO = "img/icone usuario.png"; 
-const URL_VIDEO = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; 
+const URL_VIDEO = "https://www.youtu.be/YvJZsteRjMg"; 
 
 let chatIniciado = false;
 
