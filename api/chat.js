@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
   try {
     // Conecta com a chave que estará na Vercel
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const genAI = new GoogleGenerativeAI(process.env.AIzaSyAoNHU-ZJn22fsTHPiBoJDgxUszjYy3FAM);
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
     const { message } = req.body;
