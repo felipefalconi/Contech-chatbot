@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default async function handler(req, res) {
-  // CORS (Permissões)
+  // CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -17,19 +17,20 @@ export default async function handler(req, res) {
 
   try {
     const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      throw new Error("Chave de API não configurada na Vercel");
-    }
+    if (!apiKey) throw new Error("Chave não configurada");
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    
+    // --- A MUDANÇA ESTÁ AQUI EMBAIXO ---
+    // Trocamos "gemini-pro" por "gemini-1.5-flash"
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const { message } = req.body || {};
-    if (!message) {
-      throw new Error("Mensagem vazia");
-    }
+    const { message } = req.body;
 
-    const prompt = `Você é o Tekinho, assistente da Contech. Responda de forma curta e amigável. Usuário: ${message}`;
+    const prompt = `
+      Você é o Tekinho, assistente da Contech. Responda de forma curta e amigável.
+      Usuário: ${message}
+    `;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -38,7 +39,8 @@ export default async function handler(req, res) {
     res.status(200).json({ reply: text });
 
   } catch (error) {
-    console.error("Erro no Servidor:", error);
-    res.status(500).json({ reply: "Erro técnico. Verifique os logs da Vercel." });
+    console.error("Erro API:", error);
+    // Envia o erro real para facilitar o diagnóstico, se precisar
+    res.status(500).json({ reply: "Erro técnico: " + error.message });
   }
 }
