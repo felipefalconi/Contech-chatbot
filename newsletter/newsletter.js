@@ -196,3 +196,85 @@ botoesCategoria.forEach(btn => {
         processarMensagem(texto);
     });
 });
+
+/**
+ * FUNÇÃO PRINCIPAL: Conecta com o n8n + Easter Eggs Locais
+ */
+async function processarMensagem(texto) {
+    if (!texto.trim()) return;
+
+    iniciarModoChatCompleto();
+
+    // 1. Mostra a mensagem do usuário
+    adicionarMensagem(texto, 'user');
+    inputUsuario.value = '';
+    
+    // 2. Trava input
+    inputUsuario.disabled = true;
+    botaoEnviar.disabled = true;
+    inputUsuario.placeholder = "Techo está pensando...";
+
+    // --- MUDANÇA AQUI: FILTRO DE EASTER EGGS ---
+    // Transforma o texto em minúsculas para facilitar a comparação
+    const textoBaixo = texto.toLowerCase();
+
+    // Verifica se falou do Corinthians ou perguntou o time
+    if (textoBaixo.includes("vai corinthians") || 
+        textoBaixo.includes("que time você torce") || 
+        textoBaixo.includes("qual seu time") ||
+        textoBaixo.includes("qual o seu time")) {
+        
+        // Simula um tempinho de "pensar" (1 segundo) para ficar natural
+        await new Promise(r => setTimeout(r, 1000));
+        
+        // Resposta direta do Tekinho Corintiano
+        adicionarMensagem("Aqui é **Corinthians**! Vai Timão! 🦅🖤🤍", 'bot');
+        
+        // Destrava e encerra por aqui (não manda pro n8n)
+        inputUsuario.disabled = false;
+        botaoEnviar.disabled = false;
+        inputUsuario.placeholder = "Digite sua mensagem...";
+        inputUsuario.focus();
+        return; // <--- O PULO DO GATO: Para a função aqui!
+    }
+    // --------------------------------------------------
+    
+    try {
+        // 🚨 Obtém o ID de sessão para a memória
+        const userSessionId = obterOuCriarIdSessao(); 
+
+        // --- CONEXÃO COM O N8N ---
+        const response = await fetch(N8N_WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Envia mensagem e ID
+            body: JSON.stringify({ 
+                message: texto,
+                sessionId: userSessionId 
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro no n8n: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Pega a resposta (reply, output ou text)
+        const respostaBot = data.reply || data.output || data.text || "Sem resposta definida.";
+
+        adicionarMensagem(respostaBot, 'bot');
+
+    } catch (error) {
+        console.error("Erro detalhado:", error);
+        adicionarMensagem("Desculpe, estou com problemas de conexão agora. Tente recarregar a página! 🔌", 'bot');
+    } finally {
+        // Destrava o chat (se não tiver caído no return do Corinthians)
+        inputUsuario.disabled = false;
+        botaoEnviar.disabled = false;
+        inputUsuario.placeholder = "Digite sua mensagem...";
+        inputUsuario.focus();
+    }
+}

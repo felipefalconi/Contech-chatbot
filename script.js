@@ -1,6 +1,3 @@
-/* ============================================================ */
-/* 1. LÓGICA DO SITE (Menu, Tema, Contato)                      */
-/* ============================================================ */
 
 let menu = document.getElementById("menu");
 let iconeBarras = document.getElementById("icone-barras");
@@ -67,10 +64,6 @@ function Contatar(event) {
         });
 }
 
-/* ============================================================ */
-/* 2. LÓGICA DO CHATBOT TEKINHO (VIA N8N)                       */
-/* ============================================================ */
-
 const iconeTekFechado = document.getElementById('icone-tek-fechado');
 const containerChatbot = document.getElementById('container-chatbot');
 const cabecalhoChatbot = document.getElementById('cabecalho-chatbot');
@@ -87,22 +80,16 @@ const botoesCategoria = document.querySelectorAll('.botao-categoria');
 
 const URL_MASCOTE_TEKINHO = "img/cabeca.png"; 
 const URL_ICONE_USUARIO = "img/icone usuario.png"; 
-const URL_VIDEO = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; 
+const URL_VIDEO = "https://youtu.be/YvJZsteRjMg"; 
 
 // LINK DO SEU WEBHOOK N8N (Com aspas!)
 const N8N_WEBHOOK_URL = "https://felipefalconi.app.n8n.cloud/webhook/chat";
 let chatIniciado = false;
 
-/**
- * FUNÇÃO NOVA: Cria ou recupera o ID de sessão único do utilizador.
- * O localStorage salva isso no navegador.
- */
 function obterOuCriarIdSessao() {
     let sessionId = localStorage.getItem('chatbotSessionId');
     
     if (!sessionId) {
-        // Gera um ID UUID único para o novo utilizador
-        // Usa uma função mais compatível para garantir que funciona em todos os browsers
         sessionId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         localStorage.setItem('chatbotSessionId', sessionId);
     }
